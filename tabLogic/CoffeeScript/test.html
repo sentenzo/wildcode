@@ -26,7 +26,7 @@
         .tabContent_ {
             display: none;
             margin: 5px 0px;
-            padding: 0px 10px;
+            padding: 5px 10px;
             border: 1px solid #333;
         }
         
@@ -53,43 +53,108 @@
         .trigged.active {
             display: block;
         }
+        
+        .treeElem {
+            display: block;
+            width: 100px;
+            background-color: gray;
+            border: 1px solid #333;
+        }
+        
+        .treeElem.on {
+            background-color: white;
+        }
+        
+        .treeElemContent {
+            display: none;
+            padding: 0px 10px;
+        }
+        
+        .treeElemContent.active {
+            display: block;
+        }
     </style>
-    <div class="tab active tab1">A</div>
-    <div class="tab tab2">B</div>
-    <div class="tab tab3">C</div>
+    <div class="tab active tab1">Triggers</div>
+    <div class="tab tab2">Tabs</div>
+    <div class="tab tab3">Trigger Tree</div>
 
     <div class="tabContent tab1 active">
-        <p>XXX</p>
+        <a class="trigger trigger0 off">push me</a>
+        <div class="map trigged trigger0">
+            <p>now you see me</p>
+        </div>
     </div>
     <div class="tabContent tab2">
-        <p>YYY</p>
-        <div class="tab_ active tab_1">A</div>
-        <div class="tab_ tab_2">B</div>
-        <div class="tab_ tab_3">C</div>
+        <div class="tab_ active tab_1">Triggers</div>
+        <div class="tab_ tab_2">Tabs</div>
+        <div class="tab_ tab_3">Trigger Tree</div>
 
         <div class="tabContent_ tab_1 active">
-            <p>XXX</p>
+            recursion is ...
         </div>
         <div class="tabContent_ tab_2">
-            <p>YYY</p>
+            ... not in the list of my talents ...
         </div>
         <div class="tabContent_ tab_3">
-            <p>ZZZ</p>
+            .. sorry :(
         </div>
     </div>
     <div class="tabContent tab3">
-        <p>ZZZ</p>
+        <a class="treeElem treeElem1 off">1</a>
+        <div class="treeElemContent treeElem1">
+
+            <a class="treeElem treeElem2 off">X</a>
+            <div class="treeElemContent treeElem2">
+                <a class="treeElem">x0</a>
+                <a class="treeElem">x1</a>
+            </div>
+
+            <a class="treeElem treeElem3 off">Y</a>
+            <div class="treeElemContent treeElem3">
+                <a class="treeElem">y0</a>
+                <a class="treeElem">y1</a>
+                <a class="treeElem">y2</a>
+            </div>
+        </div>
+
+        <a class="treeElem treeElem4 off">2</a>
+        <div class="treeElemContent treeElem4">
+
+            <a class="treeElem treeElem5 off">Z</a>
+            <div class="treeElemContent treeElem5">
+                <a class="treeElem">z0</a>
+                <a class="treeElem">z1</a>
+                <a class="treeElem">z2</a>
+            </div>
+        </div>
+
+        <a class="treeElem treeElem6 off">3</a>
+        <div class="treeElemContent treeElem6">
+
+            <a class="treeElem treeElem7 off">A</a>
+            <div class="treeElemContent treeElem7">
+                <a class="treeElem">a0</a>
+                <a class="treeElem">a1</a>
+            </div>
+
+            <a class="treeElem treeElem8 off">B</a>
+            <div class="treeElemContent treeElem8">
+            </div>
+
+            <a class="treeElem treeElem9 off">C</a>
+            <div class="treeElemContent treeElem9">
+                <a class="treeElem">c0</a>
+            </div>
+        </div>
     </div>
 
-    <a class="trigger trigger1 off">push me</a>
-    <div class="map trigged trigger1">
-        <p>now you see me</p>
-    </div>
+
 
     <script type="text/javascript">
         tabsInit("tab", "tabContent");
         tabsInit("tab_", "tabContent_");
         triggersInit("trigger", "trigged");
+        triggersInit("treeElem", "treeElemContent");
     </script>
 </body>
 

@@ -32,7 +32,8 @@
             if cName == "off" || cName == "on"
                 trigState = cName
         for td in trigged
-            td.classList.remove("active")
+            if td.classList.contains(trigName)
+                td.classList.remove("active")
         if(trigState == "on")
             trig.classList.remove("on")
             trig.classList.add("off")

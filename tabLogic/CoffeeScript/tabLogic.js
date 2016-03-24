@@ -80,7 +80,9 @@
       }
       for (_j = 0, _len1 = trigged.length; _j < _len1; _j++) {
         td = trigged[_j];
-        td.classList.remove("active");
+        if (td.classList.contains(trigName)) {
+          td.classList.remove("active");
+        }
       }
       if (trigState === "on") {
         trig.classList.remove("on");
