@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <script type="text/javascript" src="tabLogic.js"></script>
+</head>
+
+<body>
+    <style>
+        .tab,
+        .tab_ {
+            display: inline-block;
+            width: 100px;
+            background-color: gray;
+            border: 1px solid #333;
+        }
+        
+        .tab.active,
+        .tab_.active {
+            background-color: white;
+        }
+        
+        .tabContent,
+        .tabContent_ {
+            display: none;
+            margin: 5px 0px;
+            padding: 0px 10px;
+            border: 1px solid #333;
+        }
+        
+        .tabContent.active,
+        .tabContent_.active {
+            display: block;
+        }
+        
+        .trigger {
+            display: inline-block;
+            width: 100px;
+            background-color: gray;
+            border: 1px solid #333;
+        }
+        
+        .trigger.on {
+            background-color: white;
+        }
+        
+        .trigged {
+            display: none;
+        }
+        
+        .trigged.active {
+            display: block;
+        }
+    </style>
+    <div class="tab active tab1">A</div>
+    <div class="tab tab2">B</div>
+    <div class="tab tab3">C</div>
+
+    <div class="tabContent tab1 active">
+        <p>XXX</p>
+    </div>
+    <div class="tabContent tab2">
+        <p>YYY</p>
+        <div class="tab_ active tab_1">A</div>
+        <div class="tab_ tab_2">B</div>
+        <div class="tab_ tab_3">C</div>
+
+        <div class="tabContent_ tab_1 active">
+            <p>XXX</p>
+        </div>
+        <div class="tabContent_ tab_2">
+            <p>YYY</p>
+        </div>
+        <div class="tabContent_ tab_3">
+            <p>ZZZ</p>
+        </div>
+    </div>
+    <div class="tabContent tab3">
+        <p>ZZZ</p>
+    </div>
+
+    <a class="trigger trigger1 off">push me</a>
+    <div class="map trigged trigger1">
+        <p>now you see me</p>
+    </div>
+
+    <script type="text/javascript">
+        tabsInit("tab", "tabContent");
+        tabsInit("tab_", "tabContent_");
+        triggersInit("trigger", "trigged");
+    </script>
+</body>
+
+
+
+</html>
