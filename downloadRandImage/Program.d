@@ -1,3 +1,14 @@
+﻿//
+// dmd -O Program.d
+// 
+// for Windows you can optionally include def file
+// dmd -O Program.d win_app.def
+// 
+// win_app.def content:
+// EXETYPE NT
+// SUBSYSTEM WINDOWS
+
+
 import std.net.curl: get, download;
 import std.stdio;
 import std.path: baseName, stripExtension;
@@ -9,8 +20,8 @@ import std.conv:to;
 
 //we don't know exactly, what extansion will it be
 immutable string[] exts = [ "jpg", "png", "jpeg"];
-immutable string url = "http://alpha.wallhaven.cc/random";
-    
+immutable string url = "https://alpha.wallhaven.cc/random";
+
 void main(string[] args) {
     int n = getImageCount(args[0].baseName.stripExtension);
     while(n --> 0) {
@@ -28,8 +39,8 @@ string getWallheavenRandImageId() {
     string html = cast(string)(get(url));
     string figure = subTag (html, "figure");
     string a = subTag (figure, "a");
-    string href = a[a.indexOf ("http://")..$];
-	href = href[0..href.indexOf ('"')];
+    string href = a[a.indexOf ("https://")..$];
+    href = href[0..href.indexOf ('"')];
     string num = href.split('/')[$-1];
     return num;
 }
@@ -50,7 +61,7 @@ bool tryDownloadImage(string id, string ext, string name) {
     try {
         string fname = name ~ "." ~ ext;
         download(
-            "http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-" 
+            "https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-" 
             ~ id ~ "." ~ ext, fname);
         if(getSize(fname) < 1024*8) { //excluding "404 Page not found" 
             remove(fname);// O_O why do you think, the file is not blocked now?
