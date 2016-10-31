@@ -1,4 +1,8 @@
-﻿using System;
+// alpha.wallhaven.cc use TLSv1.2, so you should 
+//  have .Net Framework 4.5 (or higher)
+//  to use client.DownloadString
+
+using System;
 using System.Net;
 using System.Threading;
 using System.IO;
@@ -38,10 +42,10 @@ class MainClass
 	}
 	static string getWallheavenRandImageId() {
 		using (WebClient client = new WebClient ()) {
-			string html = client.DownloadString ("http://alpha.wallhaven.cc/random");
+			string html = client.DownloadString ("https://alpha.wallhaven.cc/random");
 			string figure = subTag (html, "figure");
 			string a = subTag (figure, "a");
-			string href = a.Substring (a.IndexOf ("http://"));
+			string href = a.Substring (a.IndexOf ("https://"));
 			href = href.Substring (0, href.IndexOf ('"'));
 			string[] tmp = href.Split ('/');
 			string num = tmp [tmp.Length - 1];
@@ -54,7 +58,7 @@ class MainClass
 		try {
 			using (WebClient client = new WebClient ()) {
 				client.DownloadFile (
-					"http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-" 
+					"https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-" 
 					+ id + "." + ext, name + "."+ext);
 			}
 			ret = true;
