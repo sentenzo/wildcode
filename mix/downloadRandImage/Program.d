@@ -1,4 +1,5 @@
-﻿//
+// libcurl library must be installed 
+//
 // dmd -O Program.d
 // 
 // for Windows you can optionally include def file
