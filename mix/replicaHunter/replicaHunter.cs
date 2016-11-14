@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Security.Cryptography;
 
 class ReplicaHunter
 {
+    // dir : "_Folk" 598 Mb / 71 file
+    // MD5 25s
+    // SHA1 9s
+    // SHA256 16s
+    // SHA384 17s
+    // SHA512 19s
     static Dictionary<string, List<string>> state = new Dictionary<string, List<string>>();
 
     static void Main(string[] args)
@@ -43,6 +50,26 @@ class ReplicaHunter
 
     static string fileToMetric(string file)
     {
-        return Path.GetFileName(file);
+        //using (HashAlgorithm hash = MD5.Create())
+        using (HashAlgorithm hash = SHA1.Create())
+        //using (HashAlgorithm hash = SHA256.Create())
+        //using (HashAlgorithm hash = System.Security.Cryptography.SHA384.Create())
+        //using (HashAlgorithm hash = System.Security.Cryptography.SHA512.Create())
+        using (Stream fs = File.OpenRead(file))
+        {
+            byte[] data = hash.ComputeHash(fs);
+            return byteArrayToString(data);
+        }
+        //return Path.GetFileName(file);
+    }
+
+    static string byteArrayToString(byte[] array)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.Length; i++)
+        {
+            sb.Append(String.Format("{0:X2}", array[i]));
+        }
+        return sb.ToString();
     }
 }
