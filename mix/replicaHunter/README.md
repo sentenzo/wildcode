@@ -25,3 +25,4 @@ To make stand-alone console-app for seeking file-duplicates in directories. As t
 |---------|--------|-----------|-----------------|--------------|
 | c#      | •      | •         | •               |              |
 | d       | •      | •         | •               |              |
+| nim     | •      |           | •               |              |
