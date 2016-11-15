@@ -24,3 +24,4 @@ To make stand-alone console-app for seeking file-duplicates in directories. As t
 | Language| basics | hash-sums | sorted results  | progress bar |
 |---------|--------|-----------|-----------------|--------------|
 | c#      | •      | •         | •               |              |
+| d       | •      | •         | •               |              |
