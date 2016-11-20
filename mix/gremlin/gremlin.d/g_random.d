@@ -22,8 +22,8 @@ class Rand {
   }
 
   private static dstring charSet 
-    = "()-_"
-    ~"0123456789"
+    = "()-_         "
+    ~ "0123456789"
     ~ "abcdefghijklmnopqrstuvwxyz"
     ~ "ABCDIFGHIJKLMNOPQRSTUVWXYZ"
     ;

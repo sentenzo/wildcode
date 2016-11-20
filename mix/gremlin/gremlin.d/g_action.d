@@ -21,12 +21,8 @@ class Action {
   
   public static Action rmDir(string dir) {
     Action a = new Action();
-    a.d_run = delegate() {
-      rmdir(dir);
-    };
-    a.d_unrun = delegate() {
-      mkdir(dir);
-    };
+    a.d_run   = () => rmdir(dir);
+    a.d_unrun = () => mkdir(dir);
     return a;
   }
   public static Action mkDir(string dir) {
@@ -35,9 +31,7 @@ class Action {
   
   public static Action copy(string fileFrom, string fileTo) {
     Action a = new Action();
-    a.d_run = delegate() {
-      std.file.copy(fileFrom, fileTo);
-    };
+    a.d_run = () => std.file.copy(fileFrom, fileTo);
     a.d_unrun = delegate() {
       if(feq(fileFrom, fileTo)) {
         remove(fileTo);
@@ -56,12 +50,8 @@ class Action {
   
   public static Action mv(string fileFrom, string fileTo) {
     Action a = new Action();
-    a.d_run = delegate() {
-      std.file.rename(fileFrom, fileTo);
-    };
-    a.d_unrun = delegate() {
-      std.file.rename(fileTo, fileFrom);
-    };
+    a.d_run   = () => std.file.rename(fileFrom, fileTo);
+    a.d_unrun = () => std.file.rename(fileTo, fileFrom);
     return a;
   }
   

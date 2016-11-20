@@ -10,3 +10,9 @@ To make a console-app to spoil the file tree for the chosen directory. What shou
 ###Additional features:
   - log all changes
   - ability to undo changes (using log-file)
+  
+###Progress:
+
+| Language| basics | logs   | "undo"  |
+|---------|--------|--------|---------|
+| d       |        |        |         |
