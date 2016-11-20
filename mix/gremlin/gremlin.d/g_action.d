@@ -1,27 +1,84 @@
 module g_action;
 
+import std.file;
+import std.path;
+
 class Action {
-    
-    //std.file:
-    
-    // getcwd
-    
-    // mkdir
-    // rmdir
-    // copy
-    // rename (Rename file from to to. If the target file exists, it is overwritten.)
-    /*
-unCp(file0, file1): rm(file1) if and only if sha1(file0) == sha1(file1)
-mkJunk(file0): creates file of random size with random data inside
+  private this() {}
 
-rmDir(dir0) ⇔ mkDir(dir0)                   
-mkDir(dir0) ⇔ rmDir(dir0)                 // only works if dir0 is empty
-copy(file0, file1) ⇔ drain(file0, file1)  
-drain(file0, file1) ⇔ copy(file0, file1) // should remember all the clones (does it have any sense to use?)
-mv(file0, file1) ⇔ mv(file1, file0)
-mkJunk(file0) ⇔ rm(file0)
+  private void delegate() d_run;
+  public void run() { d_run(); }
+  
+  private void delegate() d_unrun;
+  public void unrun() { d_unrun(); }
+  
+  private Action revert() {
+    void delegate() tmp = this.d_run;
+    this.d_run = this.d_unrun;
+    this.d_unrun = tmp;
+    return this;
+  }
+  
+  public static Action rmDir(string dir) {
+    Action a = new Action();
+    a.d_run = delegate() {
+      rmdir(dir);
+    };
+    a.d_unrun = delegate() {
+      mkdir(dir);
+    };
+    return a;
+  }
+  public static Action mkDir(string dir) {
+    return Action.rmDir(dir).revert();
+  }
+  
+  public static Action copy(string fileFrom, string fileTo) {
+    Action a = new Action();
+    a.d_run = delegate() {
+      std.file.copy(fileFrom, fileTo);
+    };
+    a.d_unrun = delegate() {
+      if(feq(fileFrom, fileTo)) {
+        remove(fileTo);
+      } else {
+        throw new Exception("fileFrom != fileTo");
+      }
+    };
+    return a;
+  }
+  public static Action drain(string fileTo, string fileFrom) {
+    return Action.copy(fileTo, fileFrom).revert();
+  }
+  private static bool feq(string file0, string file1) {
+    return file0.getSize == file1.getSize;
+  }
+  
+  public static Action mv(string fileFrom, string fileTo) {
+    Action a = new Action();
+    a.d_run = delegate() {
+      std.file.rename(fileFrom, fileTo);
+    };
+    a.d_unrun = delegate() {
+      std.file.rename(fileTo, fileFrom);
+    };
+    return a;
+  }
+  
+  // mkJunk(file0): creates file of random size with random data inside
+  public static Action mkJunk(string file) {
+    Action a = new Action();
+    a.d_run = delegate() {
+      //
+    };
+    a.d_unrun = delegate() {
+      //
+    };
+    return a;
+  }
 
-complex dir hierarchy?
-many different strategies of spoiling
-*/
+  /*
+  complex dir hierarchy?
+  many different strategies of spoiling
+  */
 }
