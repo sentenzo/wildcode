@@ -5,7 +5,6 @@ import std.path:baseName;
 import std.conv:to;
 
 import g_state;
-import g_config;
 
 class Rand {
   private static Random gen;

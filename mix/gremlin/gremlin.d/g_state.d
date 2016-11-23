@@ -4,11 +4,13 @@ import std.file;
 import std.path;
 
 class State {
+    public string rootDir;
     string[][string] fileTree;
     string[] files;
     string[] dirs;
     
     public this(string rootDir) {
+        this.rootDir = rootDir;
         rootDir = rootDir.expandTilde.absolutePath;
         foreach(string node; dirEntries(rootDir, SpanMode.breadth, false)) {
             if (node.isFile) {
