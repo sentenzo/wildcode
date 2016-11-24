@@ -61,7 +61,11 @@ class Rand {
     rootDir = rootDir.expandTilde.absolutePath;
     foreach(string node; dirEntries(rootDir, SpanMode.breadth, false)) {
         if (node.isFile) {
-            f_names ~= node.baseName;
+            if(conf.spoil_extensions) {
+                f_names ~= node.baseName;
+            } else {
+                f_names ~= node.baseName.stripExtension;
+            }
         } else if(node.isDir) {
             d_names ~= node.baseName;
         }
@@ -77,8 +81,8 @@ class Rand {
       return d_names[choise - f_names.length];
     }
   }
-  public static string getRandDeformedName() {
-    return deform(getRandName());
+  public static string getRandDeformedName(string ext = "") {
+    return deform(getRandName()) ~ ext;
   }
   public static string getRandFileName() {
     return getRandArrEl(f_names);

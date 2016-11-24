@@ -21,6 +21,9 @@ class Task {
             chainPath(path0, path1)
         );
     }
+    private static string sumPath(string path0, string path1, string path2) {
+        return sumPath(path0, sumPath(path1, path2));
+    }
     
     public static int rmAllEmptyDirs (string rootDir) {
         //string rootDir = _state.rootDir;
@@ -73,10 +76,16 @@ class Task {
     }
     private static void renameFile(string file) {
         string dir = file.dirName;
-        string newName = Rand.getRandDeformedName();
+        string ext;
+        if(conf.spoil_extensions) {
+            ext = "";
+        } else {
+            ext = file.extension;
+        }
+        string newName = Rand.getRandDeformedName(ext);
         //std.stdio.writefln("%s\t%s", dir, newName); return;
         while (sumPath(dir, newName).exists) {
-            newName = Rand.getRandDeformedName();
+            newName = Rand.getRandDeformedName(ext);
         }
         
         Action a = Action.mv(file, sumPath(dir, newName));
@@ -120,7 +129,7 @@ class Task {
         } else if (d == 1) {
             a = Action.copy(file, sumPath(newDir, name));
         }
-        std.stdio.writefln("%s\t%s", file, newDir);
+        //std.stdio.writefln("%s\t%s", file, newDir);
         a.run();
     }
 }

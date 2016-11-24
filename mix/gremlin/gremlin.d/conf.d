@@ -1,5 +1,5 @@
 
-public static immutable bool spoil_extensions = true;
+public static immutable bool spoil_extensions = false;
 
 public static immutable double deform_ratio = (1.0/(4+1)); // [0..1]
 
