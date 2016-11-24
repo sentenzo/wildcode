@@ -6,8 +6,16 @@ import g_task;
 import std.string;
 
 void main(string[] args) {
-    string rootDir = r"D:\__track_pak";
-    //string rootDir = r"~/../space/__track_pak";
+    string rootDir;
+    
+    if(args.length > 1) {
+        rootDir = args[1];
+        //writeln(rootDir); return;
+    } else {
+        return;
+        //rootDir = r"D:\__track_pak";
+        //rootDir = r"~/../space/__track_pak";
+    }
 
     Rand.collectRandNames(rootDir);
 
