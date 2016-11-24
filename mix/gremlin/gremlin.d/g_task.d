@@ -41,6 +41,7 @@ class Task {
     }
     
     public static void mkRandEmptyDirs (string rootDir) {
+        rootDir = rootDir.expandTilde.absolutePath;
         double p0 = conf.p_mk_empty_dir_here;
         double p1 = conf.p_mk_empty_dir_rec;
         if(dice(p0, 1-p0) == 0) {
@@ -79,6 +80,47 @@ class Task {
         }
         
         Action a = Action.mv(file, sumPath(dir, newName));
+        a.run();
+    }
+    
+    // cpmv == cp & mv
+    public static void cpmvRandFiles (string rootDir) {
+        rootDir = rootDir.expandTilde.absolutePath;
+        string[] dirs = [rootDir];
+        foreach(string node; dirEntries(rootDir, SpanMode.breadth, false)) {
+            if (node.isDir) {
+                //std.stdio.writeln(node);
+                dirs ~= node;
+            }
+        }
+        if(dirs.length == 1) { return; }
+        foreach(string node; dirEntries(rootDir, SpanMode.breadth, false)) {
+            if (node.isFile) {
+        //std.stdio.writeln(")))");
+                cpmvRandFiles(node, dirs);
+            }
+        }
+    }
+    private static void cpmvRandFiles(string file, string[] dirs) {
+        double p_mv = conf.p_move_file;
+        double p_cp = conf.p_copy_file;
+        
+        int d = dice(p_mv, p_cp, 1 - p_mv - p_cp);
+        if(d == 2) { return; }
+        
+        string dir = file.dirName;
+        string name = file.baseName;
+        string newDir = Rand.getRandArrEl(dirs);
+        while (newDir == dir) {
+            newDir = Rand.getRandArrEl(dirs);
+        }
+        Action a;
+        if(d == 0) {
+            a = Action.mv(file, sumPath(newDir, name));
+        } else if (d == 1) {
+            a = Action.copy(file, sumPath(newDir, name));
+        }
+        std.stdio.writefln("%s\t%s", file, newDir);
         a.run();
     }
 }

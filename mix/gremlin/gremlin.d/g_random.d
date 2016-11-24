@@ -19,7 +19,7 @@ class Rand {
     d_names = ["dir0", "dir1", "dir2"];
   }
   
-  private static T getRandArrEl(T)(T[] arr) {
+  public static T getRandArrEl(T)(T[] arr) {
     auto len = arr.length;
     auto choise = uniform(0, len, gen);
     return arr[choise];

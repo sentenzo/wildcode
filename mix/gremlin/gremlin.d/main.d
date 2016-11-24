@@ -12,7 +12,8 @@ void main(string[] args) {
     Rand.collectRandNames(rootDir);
 
     //Task.mkRandEmptyDirs(rootDir);
-    Task.renameRandFiles(rootDir);
+    //Task.renameRandFiles(rootDir);
+    Task.cpmvRandFiles(rootDir);
     //Task.rmAllEmptyDirs(rootDir);
 
     //writeln(cast(char)(91));
