@@ -5,6 +5,8 @@ import std.path;
 import std.conv:to;
 import std.file;
 
+import conf;
+
 class Rand {
   private static Random gen;
   private static string[] f_names;
@@ -43,8 +45,10 @@ class Rand {
    */
   public static string deform(string name) {
     dchar[] d_name = name.to!(dchar[]);
-    auto len = d_name.length;
-    for (int i=0; i<= uniform(0, len/4+1, gen); i+=1) {
+    int len = d_name.length;
+    int rlen = cast(int)std.math.ceil(
+        len*conf.deform_ratio);
+    for (int i=0; i<= uniform(0, rlen, gen); i+=1) {
       auto choise = uniform(0, len, gen);
       d_name[choise] = deformDChar(d_name[choise]);
     }
@@ -72,6 +76,9 @@ class Rand {
     } else {
       return d_names[choise - f_names.length];
     }
+  }
+  public static string getRandDeformedName() {
+    return deform(getRandName());
   }
   public static string getRandFileName() {
     return getRandArrEl(f_names);

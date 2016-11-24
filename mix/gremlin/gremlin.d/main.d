@@ -10,9 +10,10 @@ void main(string[] args) {
     //string rootDir = r"~/../space/__track_pak";
 
     Rand.collectRandNames(rootDir);
-    
-    Task.rmAllEmptyDirs(rootDir);
+
     //Task.mkRandEmptyDirs(rootDir);
+    Task.renameRandFiles(rootDir);
+    //Task.rmAllEmptyDirs(rootDir);
 
     //writeln(cast(char)(91));
     //writeln(cast(int)('a')); // a - 97
