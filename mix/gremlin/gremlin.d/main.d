@@ -11,17 +11,11 @@ void main(string[] args) {
 
     Rand.collectRandNames(rootDir);
 
-    //Task.mkRandEmptyDirs(rootDir);
-    //Task.renameRandFiles(rootDir);
+    Task.mkRandEmptyDirs(rootDir);
+    Task.renameRandFiles(rootDir);
     Task.cpmvRandFiles(rootDir);
-    //Task.rmAllEmptyDirs(rootDir);
+    Task.rmAllEmptyDirs(rootDir);
 
-    //writeln(cast(char)(91));
-    //writeln(cast(int)('a')); // a - 97
-    //int i = 100;
-    //while (i --> 0) {
-    //  writeln(Rand.getRandFile(state));
-    //}
     //void f0() {Rand.getRandFile(state);}
 
     //auto r = std.datetime.benchmark
@@ -29,7 +23,5 @@ void main(string[] args) {
     //     {Rand.getRandName_v0(state);}
     //    ,{Rand.getRandName_v1(state);})
     //  (10_000);
-
-
     //writeln(r);
 }

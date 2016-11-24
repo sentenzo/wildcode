@@ -15,4 +15,4 @@ To make a console-app to spoil the file tree for the chosen directory. What shou
 
 | Language| basics | logs   | "undo"  |
 |---------|--------|--------|---------|
-| d       |        |        |         |
+| d       | •      |        |         |
