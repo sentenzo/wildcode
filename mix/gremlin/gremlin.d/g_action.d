@@ -66,9 +66,4 @@ class Action {
     };
     return a;
   }
-
-  /*
-  complex dir hierarchy?
-  many different strategies of spoiling
-  */
 }

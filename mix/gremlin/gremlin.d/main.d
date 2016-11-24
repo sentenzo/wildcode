@@ -5,6 +5,8 @@ import g_task;
 
 import std.string;
 
+import std.file;
+
 void main(string[] args) {
     string rootDir;
     

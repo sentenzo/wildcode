@@ -4,6 +4,7 @@ import std.random;
 import std.path;
 import std.conv:to;
 import std.file;
+static import std.math;
 
 import conf;
 
@@ -45,8 +46,8 @@ class Rand {
    */
   public static string deform(string name) {
     dchar[] d_name = name.to!(dchar[]);
-    int len = d_name.length;
-    int rlen = cast(int)std.math.ceil(
+    auto len = d_name.length;
+    auto rlen = std.math.ceil(
         len*conf.deform_ratio);
     for (int i=0; i<= uniform(0, rlen, gen); i+=1) {
       auto choise = uniform(0, len, gen);
