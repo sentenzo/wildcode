@@ -5,15 +5,14 @@ import std.path;
 import std.random;
 
 import g_action;
-import g_state;
 import g_random;
 
 class Task {
-    private State _state;
-    public this(State state) {
-        _state = state;
-    }
-    public int rmAllEmptyDirs (string rootDir) {
+    //private State _state;
+    //public this(State state) {
+    //    _state = state;
+    //}
+    public static int rmAllEmptyDirs (string rootDir) {
         //string rootDir = _state.rootDir;
         rootDir = rootDir.expandTilde.absolutePath;
         int ret = 0;
@@ -31,7 +30,7 @@ class Task {
         return ret;
     }
     
-    public void mkRandEmptyDirs (string rootDir) {
+    public static void mkRandEmptyDirs (string rootDir) {
         double p0 = 0.7;
         double p1 = 0.6;
         if(dice(p0, 1-p0) == 0) {
@@ -46,11 +45,11 @@ class Task {
         }
     }
     
-    private void mkRandEmptyDirBranch (string dir) {
+    private static void mkRandEmptyDirBranch (string dir) {
         Action a = Action.mkDir( std.array.array(
             chainPath(dir, 
                         Rand.deform(
-                            Rand.getRandName(_state)))));
+                            Rand.getRandName()))));
         a.run();
     }
 }

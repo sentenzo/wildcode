@@ -1,17 +1,20 @@
 module g_random;
 
 import std.random;
-import std.path:baseName;
+import std.path;
 import std.conv:to;
-
-import g_state;
+import std.file;
 
 class Rand {
   private static Random gen;
+  private static string[] f_names;
+  private static string[] d_names;
   static this() {
     gen 
       //= Random(100);
       = Random(unpredictableSeed);
+    f_names = ["file0", "file1", "file2"];
+    d_names = ["dir0", "dir1", "dir2"];
   }
   
   private static T getRandArrEl(T)(T[] arr) {
@@ -47,20 +50,33 @@ class Rand {
     }
     return d_name.to!string;
   }
-
-  public static string getRandName(State state) {
-    auto len = state.files.length + state.dirs.length;
-    auto choise = uniform(0, len, gen);
-    if (choise < state.files.length) {
-      return state.files[choise].baseName;
-    } else {
-      return state.dirs[choise - state.files.length].baseName;
+  
+  public static void collectRandNames(string rootDir) {
+    f_names = [];
+    d_names = [];
+    rootDir = rootDir.expandTilde.absolutePath;
+    foreach(string node; dirEntries(rootDir, SpanMode.breadth, false)) {
+        if (node.isFile) {
+            f_names ~= node.baseName;
+        } else if(node.isDir) {
+            d_names ~= node.baseName;
+        }
     }
   }
-  public static string getRandFile(State state) {
-    return getRandArrEl(state.files);
+
+  public static string getRandName() {
+    auto len = f_names.length + d_names.length;
+    auto choise = uniform(0, len, gen);
+    if (choise < f_names.length) {
+      return f_names[choise];
+    } else {
+      return d_names[choise - f_names.length];
+    }
   }
-  public static string getRandDir(State state) {
-    return getRandArrEl(state.dirs);
+  public static string getRandFileName() {
+    return getRandArrEl(f_names);
+  }
+  public static string getRandDirName() {
+    return getRandArrEl(d_names);
   }
 }
